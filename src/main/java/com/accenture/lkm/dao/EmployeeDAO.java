@@ -12,14 +12,16 @@ import com.accenture.lkm.bussiness.bean.Employee;
 public class EmployeeDAO {
 	
 	static public Map<Integer, Employee> mapOfEmloyees = new LinkedHashMap<Integer, Employee>();
-	static int count=10004;
+
 	static
 	{
 		mapOfEmloyees.put(10001, new Employee("Jack",10001,12345.6,1001));
 		mapOfEmloyees.put(10002, new Employee("Justin",10002,12355.6,1002));
 		mapOfEmloyees.put(10003, new Employee("Eric",10003,12445.6,1003));
 	}
-	
+
+
+	static int count=10004;
 	public Collection<Employee> getAllEmployee(){
 		return mapOfEmloyees.values();			
 	}
@@ -29,10 +31,12 @@ public class EmployeeDAO {
 	}
 	
 	public Integer addEmployee(Employee employee){
-		count++;
+		//count++;
 		employee.setEmployeeId(count);
 		mapOfEmloyees.put(count, employee);
-		return count;
+		count++;
+		//return count;
+		return employee.getEmployeeId();
 	}
 	
 	public Employee updateEmployee (Employee employee){

@@ -1,11 +1,19 @@
 package com.accenture.lkm.bussiness.bean;
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotNull;
+
 //@XmlRootElement
 public class Employee {
+	@NotEmpty(message="Employee Name is required Field") //cannot use not null for String as it returns "" from the page
 	private String employeeName;
 	private Integer employeeId;
+	@Range(min=10,max=100000,message="Salary should be in Range of 1000 and 100000")
 	private double salary;
+	@NotNull(message="Department is required Field")
 	private Integer departmentCode;
 
 	public Employee() {
