@@ -18,16 +18,13 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeDAO employeeDAO;
-	
-	//@RequestMapping(value = "emp/controller/getDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
 	@GetMapping("/getEmployeeDetails")
 	public ResponseEntity<List<Employee>> getEmployeeDetails() {
 		List<Employee> listEmployee = new ArrayList<Employee>(employeeDAO.getAllEmployee());
 		
 		return new ResponseEntity<List<Employee>>(listEmployee,HttpStatus.OK);
 	}
-
-	//@RequestMapping(value = "emp/controller/getDetailsById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping("/getEmployeeDetailsById/{id}")
 	public ResponseEntity<Employee> getEmployeeDetailByEmployeeId(@PathVariable("id") int myId) {
 		Employee employee = employeeDAO.getEmployeeDetailsById(myId);
@@ -38,8 +35,6 @@ public class EmployeeController {
 			return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-	//@RequestMapping(value = "/emp/controller/addEmp", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_HTML_VALUE)
 	@PostMapping("addEmployees")
 	public ResponseEntity<String> addEmployee(@RequestBody Employee employee) {
 		int count=employeeDAO.addEmployee(employee);
