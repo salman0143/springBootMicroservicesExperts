@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import com.accenture.lkm.bussiness.bean.Employee;
 import com.accenture.lkm.dao.EmployeeDAO;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/controller")
+@RequestMapping("emp/controller")
 public class EmployeeController {
 
 	@Autowired
@@ -35,8 +38,11 @@ public class EmployeeController {
 			return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@PostMapping("addEmployees")
-	public ResponseEntity<String> addEmployee(@RequestBody Employee employee) {
+	@PostMapping("/addEmployees")
+	public ResponseEntity<String> addEmployee(@Valid @RequestBody Employee employee, Errors err) {
+		if(err.hasErrors()){
+			return new ResponseEntity<String>(err.getAllErrors()+"",HttpStatus.BAD_REQUEST);
+		}
 		int count=employeeDAO.addEmployee(employee);
 		return new ResponseEntity<String>("Employee added successfully with id:" + count,HttpStatus.CREATED);
 	}
